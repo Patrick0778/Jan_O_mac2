@@ -8,6 +8,8 @@ import DashboardScreen from '../screens/DashboardScreen';
 import TradeListScreen from '../screens/TradeListScreen';
 import TradeDetailScreen from '../screens/TradeDetailScreen';
 import AddTradeScreen from '../screens/AddTradeScreen';
+import TradeEntryScreen from '../screens/TradeEntryScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 import AnalyticsScreen from '../screens/AnalyticsScreen';
 import CalendarScreen from '../screens/CalendarScreen';
 import SettingsScreen from '../screens/SettingsScreen';
@@ -32,6 +34,28 @@ const TradesStack = () => {
         name="AddTrade" 
         component={AddTradeScreen}
         options={{title: 'Add Trade'}}
+      />
+      <Stack.Screen 
+        name="TradeEntry" 
+        component={TradeEntryScreen}
+        options={{title: 'Manual Trade Entry'}}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const SettingsStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen 
+        name="SettingsMain" 
+        component={SettingsScreen}
+        options={{title: 'Settings'}}
+      />
+      <Stack.Screen 
+        name="Profile" 
+        component={ProfileScreen}
+        options={{title: 'Profile'}}
       />
     </Stack.Navigator>
   );
@@ -71,7 +95,7 @@ const AppNavigator = () => {
       <Tab.Screen name="Trades" component={TradesStack} options={{headerShown: false}} />
       <Tab.Screen name="Analytics" component={AnalyticsScreen} />
       <Tab.Screen name="Calendar" component={CalendarScreen} />
-      <Tab.Screen name="Settings" component={SettingsScreen} />
+      <Tab.Screen name="Settings" component={SettingsStack} options={{headerShown: false}} />
     </Tab.Navigator>
   );
 };

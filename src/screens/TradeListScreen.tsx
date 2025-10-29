@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, FlatList, StyleSheet, TouchableOpacity} from 'react-native';
-import {Text, FAB, Card} from 'react-native-paper';
+import {Text, FAB, Card, Portal, Dialog, Button} from 'react-native-paper';
 import {useSelector} from 'react-redux';
 import {RootState} from '../redux/store';
 import {colors} from '../theme/colors';
@@ -8,6 +8,7 @@ import {spacing} from '../theme/spacing';
 
 const TradeListScreen = ({navigation}: any) => {
   const trades = useSelector((state: RootState) => state.trades.items);
+  const [showAddDialog, setShowAddDialog] = useState(false);
 
   const renderTrade = ({item}: any) => {
     const pnl = item.exitPrice 
@@ -62,8 +63,31 @@ const TradeListScreen = ({navigation}: any) => {
       <FAB
         style={styles.fab}
         icon="plus"
-        onPress={() => navigation.navigate('AddTrade')}
+        onPress={() => setShowAddDialog(true)}
       />
+      
+      <Portal>
+        <Dialog visible={showAddDialog} onDismiss={() => setShowAddDialog(false)}>
+          <Dialog.Title>Add Trade</Dialog.Title>
+          <Dialog.Content>
+            <Text>Choose how to add a trade:</Text>
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onPress={() => {
+              setShowAddDialog(false);
+              navigation.navigate('AddTrade');
+            }}>
+              Quick Add (Redux)
+            </Button>
+            <Button onPress={() => {
+              setShowAddDialog(false);
+              navigation.navigate('TradeEntry');
+            }}>
+              Local Storage
+            </Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
     </View>
   );
 };

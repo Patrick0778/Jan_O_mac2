@@ -9,8 +9,12 @@ A professional React Native trading journal application that helps traders track
 ### Complete Specification
 - **[prompt.md](./prompt.md)** - Complete consolidated prompt with all specifications, features, and setup instructions
 
+### Local-Only Architecture
+- **[docs/LOCAL_ONLY_README.md](./docs/LOCAL_ONLY_README.md)** - **NEW**: Local-only design, backup/export instructions, and data privacy guide
+
 ### Additional Resources  
 - **[COPILOT_PROMPT.md](./COPILOT_PROMPT.md)** - Detailed development specifications
+- **[.github/COPILOT_PROMPT.md](./.github/COPILOT_PROMPT.md)** - **NEW**: Local-only constraints for future development
 - **[FEATURES_SUMMARY.md](./FEATURES_SUMMARY.md)** - Quick feature reference
 - **[QUICK_START.md](./QUICK_START.md)** - Step-by-step setup guide
 
@@ -78,14 +82,28 @@ trading-journal/
 
 1. **Install dependencies**:
 ```bash
-npm install
+npm install --legacy-peer-deps
 # or
 yarn install
 ```
 
+**Note**: This app now includes local storage and PDF export dependencies:
+- `@react-native-async-storage/async-storage` - For local data persistence
+- `react-native-html-to-pdf` - For local PDF report generation
+- `react-native-share` - For native file sharing
+- `uuid` - For generating unique IDs
+
 2. **Install iOS dependencies** (Mac only):
 ```bash
 cd ios && pod install && cd ..
+```
+
+3. **Link native modules** (if needed):
+```bash
+# Usually auto-linked in RN 0.60+, but if issues occur:
+npx react-native link @react-native-async-storage/async-storage
+npx react-native link react-native-html-to-pdf
+npx react-native link react-native-share
 ```
 
 3. **Run the app**:

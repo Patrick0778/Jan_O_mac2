@@ -1,6 +1,18 @@
 # Jan_O_mac2
 Trading Journal App - A Professional Trading Journal Application
 
+## ⚠️ Local-Only Architecture
+
+**This app operates in a fully local-only mode:**
+- ✅ All data stored locally on your device using AsyncStorage
+- ✅ Complete privacy - no cloud sync or network requests for user data
+- ✅ Manual trade entry only - no automatic price fetching
+- ✅ Tax and region features have been removed
+- ✅ PDF exports generated locally
+- ✅ Works completely offline
+
+See [docs/LOCAL_ONLY_README.md](./docs/LOCAL_ONLY_README.md) for complete documentation.
+
 ## Overview
 A professional React Native trading journal application that helps traders track, analyze, and improve their trading performance across multiple asset classes including stocks, forex, crypto, options, and futures.
 
@@ -8,9 +20,11 @@ A professional React Native trading journal application that helps traders track
 
 ### Complete Specification
 - **[prompt.md](./prompt.md)** - Complete consolidated prompt with all specifications, features, and setup instructions
+- **[docs/LOCAL_ONLY_README.md](./docs/LOCAL_ONLY_README.md)** - ⭐ Local-only architecture documentation
 
 ### Additional Resources  
-- **[COPILOT_PROMPT.md](./COPILOT_PROMPT.md)** - Detailed development specifications
+- **[.github/COPILOT_PROMPT.md](./.github/COPILOT_PROMPT.md)** - Detailed development guidelines for local-only features
+- **[COPILOT_PROMPT.md](./COPILOT_PROMPT.md)** - Detailed development specifications (legacy)
 - **[FEATURES_SUMMARY.md](./FEATURES_SUMMARY.md)** - Quick feature reference
 - **[QUICK_START.md](./QUICK_START.md)** - Step-by-step setup guide
 
@@ -88,6 +102,14 @@ yarn install
 cd ios && pod install && cd ..
 ```
 
+3. **New dependencies for local-only features**:
+   - `@react-native-async-storage/async-storage` - Local data storage
+   - `react-native-html-to-pdf` - PDF generation
+   - `react-native-share` - Native share dialog
+   - `uuid` - Unique ID generation
+   
+   These are already included in package.json and will be installed with `npm install`.
+
 3. **Run the app**:
 ```bash
 # iOS
@@ -133,13 +155,13 @@ npm run format        # Format code
 
 1. **Enhanced Trade Details** - Complete trade detail screen with full information
 2. **Exit Trade** - Implement functionality to close open positions
-3. **Journal Notes** - Add note-taking capability for trades
+3. **Journal Notes** - Add note-taking capability for trades ✅ (available in TradeEntryScreen)
 4. **Charts & Analytics** - Implement Victory Native charts for visualization
 5. **Calendar View** - Build interactive calendar with daily P&L
 6. **Strategy Management** - Full CRUD for trading strategies
-7. **Reports** - PDF/CSV export functionality
-8. **SQLite Integration** - Persistent data storage
-9. **Cloud Sync** - Multi-device synchronization
+7. **Reports** - PDF/CSV export functionality ✅ (local PDF export implemented)
+8. **Local Storage Integration** - ✅ Implemented with AsyncStorage
+9. **~~Cloud Sync~~** - ❌ Removed (local-only by design)
 10. **Testing** - Unit and integration tests
 
 ## 🧪 Testing

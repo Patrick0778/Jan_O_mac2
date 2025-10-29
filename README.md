@@ -5,13 +5,21 @@ Trading Journal App - A Professional Trading Journal Application
 This repository contains the design specifications and development prompt for creating a professional trading journal application in React Native. The app helps traders track, analyze, and improve their trading performance across multiple asset classes.
 
 ## Documentation
-See [COPILOT_PROMPT.md](./COPILOT_PROMPT.md) for the comprehensive development prompt that includes:
-- Complete feature specifications
+
+### 📖 Complete Documentation Files
+- **[COPILOT_PROMPT.md](./COPILOT_PROMPT.md)** - Comprehensive development prompt with complete specifications, technical architecture, data models, UI/UX guidelines, and implementation roadmap
+- **[FEATURES_SUMMARY.md](./FEATURES_SUMMARY.md)** - Quick reference guide listing all features, modules, and statistics
+- **[QUICK_START.md](./QUICK_START.md)** - Step-by-step guide to initialize the project and start development
+
+### What's Included
+- Complete feature specifications (10 major modules)
 - Technical architecture and requirements
-- Data models and calculations
-- UI/UX design guidelines
-- Implementation roadmap
+- Data models with TypeScript interfaces
+- Calculation formulas for trading metrics
+- UI/UX design guidelines with color schemes
+- Phase-by-phase implementation roadmap
 - Best practices and testing strategies
+- Security and compliance considerations
 
 ## Key Features
 - Trade management and tracking

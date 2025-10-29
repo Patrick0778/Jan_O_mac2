@@ -16,7 +16,7 @@ import { spacing } from '../theme/spacing';
 
 interface TaxRegionRemovedNoticeProps {
   variant?: 'default' | 'compact';
-  style?: any;
+  style?: object;
 }
 
 const TaxRegionRemovedNotice: React.FC<TaxRegionRemovedNoticeProps> = ({

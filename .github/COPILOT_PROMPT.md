@@ -7,24 +7,28 @@ This trading journal app is **100% local-only**. All data must be stored on-devi
 ## Core Principles
 
 ### 1. Local-Only Data Storage
+
 - **ALL user data** (profile, trades, settings) must be stored locally using AsyncStorage
 - **NO cloud sync** or remote database connections
 - **NO network requests** for fetching trade data, market prices, or user profiles
 - Data persistence must use React Native's AsyncStorage API only
 
 ### 2. Manual Trade Entry Only
+
 - Users manually enter all trade information (symbol, price, quantity, fees)
 - **NO automatic price fetching** from market APIs
 - **NO integration** with broker APIs or external data sources
 - All trade data is user-provided and stored locally
 
 ### 3. Tax and Region Features Removed
+
 - **NO tax calculation features** - these have been intentionally removed
 - **NO region/country selection** for tax purposes
 - If you encounter references to tax or region features, replace them with the `TaxRegionRemovedNotice` component
 - Do not add new tax or region-related functionality
 
 ### 4. Export and Sharing
+
 - PDF export must be generated **locally** using react-native-html-to-pdf
 - JSON backup files must be created and stored **locally**
 - Use native share APIs (react-native-share) only when user explicitly requests sharing
@@ -34,35 +38,45 @@ This trading journal app is **100% local-only**. All data must be stored on-devi
 ## Technical Implementation Guidelines
 
 ### Data Layer
+
 ```typescript
 // Use localStorage.ts service for all data operations
-import { saveProfile, loadProfile, addTrade, loadTrades } from '../services/localStorage';
+import {
+  saveProfile,
+  loadProfile,
+  addTrade,
+  loadTrades,
+} from '../services/localStorage';
 
 // DO NOT use fetch, axios, or any network libraries for user data
 // DO NOT implement cloud sync features
 ```
 
 ### Profile Management
+
 - Profile stored in AsyncStorage with key 'user_profile'
 - Fields: name, email (optional), startingCapital, currency, createdAt
 - **NO region or tax-related fields**
 
 ### Trade Management
+
 - Trades stored in AsyncStorage with key 'trades_data'
 - Each trade: id, symbol, type, quantity, entryPrice, exitPrice, fees, notes, date
 - **NO automatic price updates** or live market data
 - **NO cloud backup** of trades
 
 ### PDF Export
+
 ```typescript
 // Use localPdfExport.ts helper
-import { generateTradePdf } from '../utils/localPdfExport';
+import {generateTradePdf} from '../utils/localPdfExport';
 
 // Generates PDF locally, returns file path
 // Use react-native-share to let user share the PDF
 ```
 
 ### Components to Use
+
 - `TaxRegionRemovedNotice` - Display when tax/region features would have been shown
 - Standard React Native components (no web-only dependencies)
 - React Native Paper for UI components
@@ -76,7 +90,7 @@ import { generateTradePdf } from '../utils/localPdfExport';
 ❌ Do not use web-only APIs or libraries  
 ❌ Do not add analytics that transmit user data  
 ❌ Do not fetch live market prices  
-❌ Do not integrate with broker APIs  
+❌ Do not integrate with broker APIs
 
 ## What TO Do
 
@@ -87,7 +101,7 @@ import { generateTradePdf } from '../utils/localPdfExport';
 ✅ Keep all user data on-device  
 ✅ Add clear comments explaining local-only behavior  
 ✅ Test data persistence across app restarts  
-✅ Validate user input thoroughly  
+✅ Validate user input thoroughly
 
 ## Dependencies Approved for Use
 
@@ -112,6 +126,7 @@ Before committing code, verify:
 ## Example: Adding a New Feature
 
 **Good Example - Local Trade Entry:**
+
 ```typescript
 // TradeEntryScreen.tsx
 const handleSaveTrade = async () => {
@@ -122,13 +137,14 @@ const handleSaveTrade = async () => {
     price: parseFloat(price), // User manually enters price
     date: new Date().toISOString(),
   };
-  
+
   await addTrade(trade); // Saves to AsyncStorage
   navigation.goBack();
 };
 ```
 
 **Bad Example - Fetching Price Data:**
+
 ```typescript
 // ❌ DO NOT DO THIS
 const fetchLivePrice = async (symbol: string) => {
@@ -140,8 +156,9 @@ const fetchLivePrice = async (symbol: string) => {
 ## Questions?
 
 If you're unsure whether a feature fits the local-only architecture, ask yourself:
+
 - Does this require network access? ❌ Don't implement it
-- Does this store data remotely? ❌ Don't implement it  
+- Does this store data remotely? ❌ Don't implement it
 - Does this involve tax calculations? ❌ Don't implement it
 - Can this be done entirely on-device? ✅ Proceed with implementation
 

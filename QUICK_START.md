@@ -3,6 +3,7 @@
 ## Prerequisites
 
 Before you begin, ensure you have the following installed:
+
 - Node.js (v14 or higher)
 - npm or yarn
 - React Native development environment:
@@ -69,7 +70,9 @@ cd ..
 ### Step 4: Configure Dependencies
 
 #### React Native Reanimated
+
 Add to `babel.config.js`:
+
 ```javascript
 module.exports = {
   presets: ['module:metro-react-native-babel-preset'],
@@ -78,7 +81,9 @@ module.exports = {
 ```
 
 #### Vector Icons
+
 Link the fonts in `android/app/build.gradle`:
+
 ```gradle
 project.ext.vectoricons = [
     iconFontNames: ['MaterialIcons.ttf', 'MaterialCommunityIcons.ttf']
@@ -100,6 +105,7 @@ mkdir -p assets/{images,icons,fonts}
 ### Step 6: Configure TypeScript
 
 Update `tsconfig.json`:
+
 ```json
 {
   "compilerOptions": {
@@ -149,11 +155,13 @@ npx react-native run-android
 ## Development Workflow
 
 ### 1. Start Metro Bundler
+
 ```bash
 npm start
 ```
 
 ### 2. Run on Device/Emulator
+
 ```bash
 # iOS Simulator
 npm run ios
@@ -169,6 +177,7 @@ npm run android
 ```
 
 ### 3. Debug
+
 - Press `Cmd + D` (iOS) or `Cmd + M` (Android) to open developer menu
 - Enable Hot Reloading for faster development
 - Use React Native Debugger or Flipper for advanced debugging

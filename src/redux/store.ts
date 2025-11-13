@@ -15,7 +15,12 @@ export const store = configureStore({
         // Ignore these action types
         ignoredActions: ['trades/addTrade', 'trades/updateTrade'],
         // Ignore these field paths in all actions
-        ignoredActionPaths: ['payload.entryDate', 'payload.exitDate', 'payload.createdAt', 'payload.updatedAt'],
+        ignoredActionPaths: [
+          'payload.entryDate',
+          'payload.exitDate',
+          'payload.createdAt',
+          'payload.updatedAt',
+        ],
         // Ignore these paths in the state
         ignoredPaths: ['trades.items'],
       },

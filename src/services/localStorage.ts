@@ -1,19 +1,19 @@
 /**
  * Local Storage Service
- * 
+ *
  * This service manages all local data storage using React Native AsyncStorage.
  * All user data (profile, trades, settings) is stored locally on-device.
- * 
+ *
  * Design Philosophy:
  * - No cloud sync or remote storage
  * - No network requests for data
  * - Complete user privacy and control
  * - Data persists across app restarts
- * 
+ *
  * Storage Keys:
  * - 'user_profile': User profile data (name, starting capital, etc.)
  * - 'trades_data': Array of all trade records
- * 
+ *
  * To change storage mechanism in the future:
  * - Replace AsyncStorage imports with new storage library
  * - Ensure all methods remain async
@@ -71,7 +71,10 @@ export const saveProfile = async (profile: Profile): Promise<void> => {
       ...profile,
       updatedAt: new Date().toISOString(),
     };
-    await AsyncStorage.setItem(STORAGE_KEYS.PROFILE, JSON.stringify(profileData));
+    await AsyncStorage.setItem(
+      STORAGE_KEYS.PROFILE,
+      JSON.stringify(profileData),
+    );
   } catch (error) {
     console.error('Error saving profile to local storage:', error);
     throw new Error('Failed to save profile locally');
@@ -118,21 +121,24 @@ export const addTrade = async (trade: Trade): Promise<void> => {
 /**
  * Update an existing trade in local storage
  */
-export const updateTrade = async (tradeId: string, updates: Partial<Trade>): Promise<void> => {
+export const updateTrade = async (
+  tradeId: string,
+  updates: Partial<Trade>,
+): Promise<void> => {
   try {
     const trades = await loadTrades();
     const index = trades.findIndex(t => t.id === tradeId);
-    
+
     if (index === -1) {
       throw new Error('Trade not found');
     }
-    
+
     trades[index] = {
       ...trades[index],
       ...updates,
       updatedAt: new Date().toISOString(),
     };
-    
+
     await saveTrades(trades);
   } catch (error) {
     console.error('Error updating trade in local storage:', error);
@@ -193,14 +199,14 @@ export const exportTradesJson = async (): Promise<string> => {
   try {
     const profile = await loadProfile();
     const trades = await loadTrades();
-    
+
     const exportData = {
       exportDate: new Date().toISOString(),
       appVersion: '1.0.0',
       profile,
       trades,
     };
-    
+
     return JSON.stringify(exportData, null, 2);
   } catch (error) {
     console.error('Error exporting trades to JSON:', error);
@@ -216,23 +222,23 @@ export const exportTradesJson = async (): Promise<string> => {
 export const importTradesJson = async (jsonString: string): Promise<void> => {
   try {
     const importData = JSON.parse(jsonString);
-    
+
     // Validate import data structure
     if (!importData.trades || !Array.isArray(importData.trades)) {
       throw new Error('Invalid import data format');
     }
-    
+
     const existingTrades = await loadTrades();
     const existingIds = new Set(existingTrades.map(t => t.id));
-    
+
     // Only import trades that don't already exist (avoid duplicates)
     const newTrades = importData.trades.filter(
-      (trade: Trade) => !existingIds.has(trade.id)
+      (trade: Trade) => !existingIds.has(trade.id),
     );
-    
+
     const mergedTrades = [...existingTrades, ...newTrades];
     await saveTrades(mergedTrades);
-    
+
     // Import profile if not exists
     if (importData.profile) {
       const existingProfile = await loadProfile();
@@ -271,7 +277,7 @@ export const getStorageStats = async (): Promise<{
   try {
     const profile = await loadProfile();
     const trades = await loadTrades();
-    
+
     return {
       profileExists: profile !== null,
       tradeCount: trades.length,

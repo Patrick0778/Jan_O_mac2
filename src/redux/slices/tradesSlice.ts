@@ -41,5 +41,12 @@ const tradesSlice = createSlice({
   },
 });
 
-export const {addTrade, updateTrade, deleteTrade, setTrades, setLoading, setError} = tradesSlice.actions;
+export const {
+  addTrade,
+  updateTrade,
+  deleteTrade,
+  setTrades,
+  setLoading,
+  setError,
+} = tradesSlice.actions;
 export default tradesSlice.reducer;

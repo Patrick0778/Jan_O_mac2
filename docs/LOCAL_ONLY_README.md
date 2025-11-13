@@ -25,12 +25,14 @@ Jan_O_mac2 is a **fully local-only** React Native trading journal application. A
 **Technology**: React Native AsyncStorage
 
 **Storage Keys**:
+
 - `user_profile` - User profile data (name, starting capital, currency)
 - `trades_data` - Array of all trade records
 
 **Service**: `src/services/localStorage.ts`
 
 This service provides all CRUD operations for profile and trade data:
+
 - `saveProfile(profile)` - Save/update user profile
 - `loadProfile()` - Load user profile
 - `addTrade(trade)` - Add new trade
@@ -44,6 +46,7 @@ This service provides all CRUD operations for profile and trade data:
 ### Data Models
 
 #### Profile
+
 ```typescript
 interface Profile {
   id: string;
@@ -59,6 +62,7 @@ interface Profile {
 **Note**: No `region` or `taxStatus` fields - these have been removed.
 
 #### Trade
+
 ```typescript
 interface Trade {
   id: string;
@@ -83,6 +87,7 @@ interface Trade {
 ### New Screens
 
 1. **ProfileScreen** (`src/screens/ProfileScreen.tsx`)
+
    - Create/edit user profile
    - Stored locally only
    - No region or tax fields
@@ -97,6 +102,7 @@ interface Trade {
 ### Components
 
 **TaxRegionRemovedNotice** (`src/components/TaxRegionRemovedNotice.tsx`)
+
 - Displays information about removed features
 - Two variants: `default` and `compact`
 - Use in settings or help screens
@@ -110,6 +116,7 @@ interface Trade {
 **Function**: `generateTradePdf(profile, trades)`
 
 Generates a professional PDF report with:
+
 - Summary statistics (total P&L, win rate, etc.)
 - Trade history table
 - All generated locally using `react-native-html-to-pdf`
@@ -117,7 +124,7 @@ Generates a professional PDF report with:
 **Sharing**: Use `react-native-share` to open native share dialog
 
 ```typescript
-import { generateTradePdf } from '../utils/localPdfExport';
+import {generateTradePdf} from '../utils/localPdfExport';
 import Share from 'react-native-share';
 
 // Generate PDF
@@ -135,6 +142,7 @@ await Share.open({
 **Export**: `exportTradesJson()` from localStorage service
 
 Creates JSON backup containing:
+
 - User profile
 - All trades
 - Export metadata (date, app version)
@@ -142,6 +150,7 @@ Creates JSON backup containing:
 **Import**: `importTradesJson(jsonString)`
 
 Validates and imports data:
+
 - Merges with existing trades (no duplicates)
 - Preserves existing profile if present
 - Validates data structure
@@ -171,6 +180,7 @@ npm install uuid
 ```
 
 For iOS (native modules):
+
 ```bash
 cd ios && pod install && cd ..
 ```
@@ -180,18 +190,21 @@ cd ios && pod install && cd ..
 ### Manual Testing Checklist
 
 1. **Profile Persistence**
+
    - [ ] Create a profile
    - [ ] Close app completely
    - [ ] Reopen app
    - [ ] Verify profile data persists
 
 2. **Trade Storage**
+
    - [ ] Add multiple trades
    - [ ] Close app
    - [ ] Reopen app
    - [ ] Verify all trades are loaded
 
 3. **PDF Export**
+
    - [ ] Generate PDF report
    - [ ] Verify PDF is created locally
    - [ ] Verify file path is accessible
@@ -206,6 +219,7 @@ cd ios && pod install && cd ..
 ### Unit Test Coverage
 
 Create tests for:
+
 - `localStorage.ts` service methods
 - P&L calculations in `localPdfExport.ts`
 - JSON export/import validation
@@ -223,23 +237,28 @@ If migrating from a cloud-synced version:
 ## Security Considerations
 
 ### Data Privacy
+
 - All data stored in AsyncStorage (encrypted at OS level)
 - No transmission of user data
 - No third-party analytics or tracking
 
 ### Backup Responsibility
+
 - Users responsible for their own backups
 - Recommend periodic JSON exports
 - Store backups securely (encrypted cloud storage, external drive)
 
 ### App Permissions
+
 Required permissions:
+
 - **Storage** (read/write for PDF/JSON export)
 - **No network permissions** needed for core functionality
 
 ## Limitations
 
 ### By Design
+
 1. No automatic price updates
 2. No cloud backup/sync
 3. No multi-device synchronization
@@ -247,6 +266,7 @@ Required permissions:
 5. No broker API integration
 
 ### Technical
+
 1. AsyncStorage limits (~6MB on Android, more on iOS)
 2. Large trade histories may impact performance
 3. No automatic data migration between devices
@@ -254,6 +274,7 @@ Required permissions:
 ## Future Considerations
 
 ### Possible Enhancements (while maintaining local-only)
+
 - Import trades from CSV files
 - More detailed PDF reports with charts
 - Data compression for large trade histories
@@ -261,6 +282,7 @@ Required permissions:
 - Encrypted local backups
 
 ### Will NOT Be Added
+
 - Cloud sync
 - Network-based price fetching
 - Tax calculation features
@@ -271,18 +293,21 @@ Required permissions:
 ## Troubleshooting
 
 ### Data Not Persisting
+
 1. Check AsyncStorage permissions
 2. Verify app isn't in "Private Mode" (iOS)
 3. Check device storage space
 4. Review console logs for errors
 
 ### PDF Generation Fails
+
 1. Check storage permissions
 2. Verify `react-native-html-to-pdf` is linked correctly
 3. Check available disk space
 4. Review error messages in logs
 
 ### Import Fails
+
 1. Verify JSON file format is correct
 2. Check file is accessible to app
 3. Ensure JSON contains required fields
@@ -291,6 +316,7 @@ Required permissions:
 ## Support & Contribution
 
 This is a local-only app by design. Feature requests involving:
+
 - Cloud sync
 - Network requests
 - Tax calculations
@@ -301,6 +327,7 @@ This is a local-only app by design. Feature requests involving:
 ## Version History
 
 ### v1.0.0 - Local-Only Architecture
+
 - Converted to fully local storage
 - Removed tax and region features
 - Added AsyncStorage-based data layer

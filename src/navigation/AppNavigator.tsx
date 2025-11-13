@@ -20,23 +20,23 @@ const Stack = createStackNavigator();
 const TradesStack = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen 
-        name="TradeList" 
+      <Stack.Screen
+        name="TradeList"
         component={TradeListScreen}
         options={{title: 'Trades'}}
       />
-      <Stack.Screen 
-        name="TradeDetail" 
+      <Stack.Screen
+        name="TradeDetail"
         component={TradeDetailScreen}
         options={{title: 'Trade Details'}}
       />
-      <Stack.Screen 
-        name="AddTrade" 
+      <Stack.Screen
+        name="AddTrade"
         component={AddTradeScreen}
         options={{title: 'Add Trade'}}
       />
-      <Stack.Screen 
-        name="TradeEntry" 
+      <Stack.Screen
+        name="TradeEntry"
         component={TradeEntryScreen}
         options={{title: 'Manual Trade Entry'}}
       />
@@ -47,13 +47,13 @@ const TradesStack = () => {
 const SettingsStack = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen 
-        name="SettingsMain" 
+      <Stack.Screen
+        name="SettingsMain"
         component={SettingsScreen}
         options={{title: 'Settings'}}
       />
-      <Stack.Screen 
-        name="Profile" 
+      <Stack.Screen
+        name="Profile"
         component={ProfileScreen}
         options={{title: 'Profile'}}
       />
@@ -67,7 +67,7 @@ const AppNavigator = () => {
       screenOptions={({route}) => ({
         tabBarIcon: ({color, size}) => {
           let iconName = 'home';
-          
+
           switch (route.name) {
             case 'Dashboard':
               iconName = 'view-dashboard';
@@ -85,17 +85,25 @@ const AppNavigator = () => {
               iconName = 'cog';
               break;
           }
-          
+
           return <Icon name={iconName} size={size} color={color} />;
         },
         tabBarActiveTintColor: '#2196F3',
         tabBarInactiveTintColor: 'gray',
       })}>
       <Tab.Screen name="Dashboard" component={DashboardScreen} />
-      <Tab.Screen name="Trades" component={TradesStack} options={{headerShown: false}} />
+      <Tab.Screen
+        name="Trades"
+        component={TradesStack}
+        options={{headerShown: false}}
+      />
       <Tab.Screen name="Analytics" component={AnalyticsScreen} />
       <Tab.Screen name="Calendar" component={CalendarScreen} />
-      <Tab.Screen name="Settings" component={SettingsStack} options={{headerShown: false}} />
+      <Tab.Screen
+        name="Settings"
+        component={SettingsStack}
+        options={{headerShown: false}}
+      />
     </Tab.Navigator>
   );
 };

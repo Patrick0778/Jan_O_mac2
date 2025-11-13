@@ -1,11 +1,13 @@
 # Trading Journal App Development Prompt
 
 ## Project Overview
+
 Create a professional trading journal application in React Native that helps traders track, analyze, and improve their trading performance. The app should be cross-platform (iOS and Android), feature-rich, and provide actionable insights.
 
 ## Core Features
 
 ### 1. Trade Management
+
 - **Add Trade Entry**: Create new trade entries with the following fields:
   - Symbol/Ticker (stock, forex, crypto, etc.)
   - Entry date and time
@@ -17,8 +19,8 @@ Create a professional trading journal application in React Native that helps tra
   - Asset class (Stocks, Forex, Crypto, Options, Futures)
   - Trading strategy used
   - Stop loss and take profit levels
-  
 - **Trade List View**: Display all trades in a scrollable list with:
+
   - Quick filters (All, Winning, Losing, Open positions)
   - Sort options (Date, P&L, Symbol)
   - Visual indicators for profit/loss (green/red)
@@ -33,17 +35,18 @@ Create a professional trading journal application in React Native that helps tra
   - Trade tags/labels
 
 ### 2. Journal & Notes
+
 - **Trade Journal Entries**: For each trade, allow traders to:
   - Write pre-trade analysis (why entering the trade)
   - Document emotional state and market conditions
   - Add post-trade review and lessons learned
   - Attach screenshots/charts (camera or gallery)
   - Rate trade execution (1-5 stars)
-  
 - **Rich Text Editor**: Support markdown or rich text formatting for notes
 - **Voice Notes**: Optional voice recording for quick trade notes
 
 ### 3. Analytics & Statistics
+
 - **Dashboard Overview**:
   - Total P&L (daily, weekly, monthly, all-time)
   - Win rate percentage
@@ -52,7 +55,6 @@ Create a professional trading journal application in React Native that helps tra
   - Profit factor
   - Largest win and largest loss
   - Current streak (winning/losing)
-  
 - **Performance Charts**:
   - Equity curve (cumulative P&L over time)
   - Daily/Weekly/Monthly P&L bar charts
@@ -60,7 +62,6 @@ Create a professional trading journal application in React Native that helps tra
   - Win rate by time of day
   - Performance by asset class
   - Performance by strategy
-  
 - **Advanced Analytics**:
   - Expectancy calculation
   - Risk-adjusted returns (Sharpe ratio)
@@ -70,12 +71,12 @@ Create a professional trading journal application in React Native that helps tra
   - Consecutive wins/losses streaks
 
 ### 4. Strategy Performance
+
 - **Strategy Tracking**: Create and manage trading strategies:
   - Name and description
   - Rules and entry/exit criteria
   - Associated trades
   - Performance metrics per strategy
-  
 - **Strategy Comparison**: Compare multiple strategies side-by-side:
   - P&L comparison
   - Win rate comparison
@@ -83,6 +84,7 @@ Create a professional trading journal application in React Native that helps tra
   - Visual charts
 
 ### 5. Calendar View
+
 - **Trading Calendar**: Visual calendar showing:
   - Trading days highlighted
   - Daily P&L color-coded (green for profit, red for loss)
@@ -91,38 +93,38 @@ Create a professional trading journal application in React Native that helps tra
   - Monthly summary statistics
 
 ### 6. Goal Setting & Tracking
+
 - **Trading Goals**: Set and track various goals:
   - Monthly profit targets
   - Maximum drawdown limits
   - Daily trade limits
   - Win rate targets
   - Consistency goals
-  
 - **Progress Tracking**: Visual indicators showing progress toward goals:
   - Progress bars
   - Notifications when goals are met or violated
   - Goal achievement history
 
 ### 7. Reports & Export
+
 - **Generate Reports**: Create detailed trading reports:
   - Custom date range selection
   - PDF export with charts and statistics
   - CSV export of trade data
   - Email or share reports
-  
 - **Tax Documentation**: Prepare tax-related summaries:
   - Realized gains/losses
   - Trade history by year
   - Exportable formats for tax software
 
 ### 8. Settings & Customization
+
 - **Account Settings**:
   - User profile (name, photo)
   - Starting capital
   - Currency preference
   - Commission/fee settings
   - Time zone settings
-  
 - **App Preferences**:
   - Dark/Light theme
   - Notification preferences
@@ -131,31 +133,33 @@ Create a professional trading journal application in React Native that helps tra
   - Data backup and restore
 
 ### 9. Data Synchronization
+
 - **Cloud Backup**: Automatic backup of all data to cloud storage
 - **Multi-device Sync**: Sync data across multiple devices
 - **Offline Mode**: Full functionality offline with sync when online
 
 ### 10. Security & Privacy
+
 - **Authentication**: Secure login with:
   - PIN/Password protection
   - Biometric authentication (Face ID/Touch ID)
   - Session timeout
-  
 - **Data Encryption**: Encrypt sensitive data locally and in transit
 - **Privacy**: All data stored locally or in user's private cloud
 
 ## Technical Requirements
 
 ### Technology Stack
+
 - **Framework**: React Native (latest stable version)
 - **Language**: TypeScript for type safety
 - **Navigation**: React Navigation (v6+) with stack and tab navigators
 - **State Management**: Redux Toolkit or Context API with useReducer
-- **Local Storage**: 
+- **Local Storage**:
   - AsyncStorage for simple data
   - SQLite (via expo-sqlite or react-native-sqlite-storage) for relational data
   - Realm Database as alternative for complex queries
-- **UI Components**: 
+- **UI Components**:
   - React Native Paper or Native Base for Material Design
   - React Native Elements for customizable components
   - Custom styled components with styled-components
@@ -167,6 +171,7 @@ Create a professional trading journal application in React Native that helps tra
 - **Authentication**: expo-local-authentication or react-native-biometrics
 
 ### Project Structure
+
 ```
 trading-journal-app/
 ├── src/
@@ -231,6 +236,7 @@ trading-journal-app/
 ### Data Models
 
 #### Trade Model
+
 ```typescript
 interface Trade {
   id: string;
@@ -261,6 +267,7 @@ interface Trade {
 ```
 
 #### Strategy Model
+
 ```typescript
 interface Strategy {
   id: string;
@@ -273,6 +280,7 @@ interface Strategy {
 ```
 
 #### Goal Model
+
 ```typescript
 interface Goal {
   id: string;
@@ -287,18 +295,20 @@ interface Goal {
 ### Calculations
 
 #### P&L Calculation
+
 ```typescript
 // For Long positions
-pnl = (exitPrice - entryPrice) * quantity - commission
+pnl = (exitPrice - entryPrice) * quantity - commission;
 
 // For Short positions
-pnl = (entryPrice - exitPrice) * quantity - commission
+pnl = (entryPrice - exitPrice) * quantity - commission;
 
 // Percentage return
-returnPercentage = (pnl / (entryPrice * quantity)) * 100
+returnPercentage = (pnl / (entryPrice * quantity)) * 100;
 ```
 
 #### Statistics Calculations
+
 ```typescript
 // Win Rate
 winRate = (numberOfWinningTrades / totalTrades) * 100
@@ -320,6 +330,7 @@ maxDrawdown = max(peak - trough) over all periods
 ## UI/UX Design Guidelines
 
 ### Design Principles
+
 1. **Professional & Clean**: Use a modern, minimalist design with clear hierarchy
 2. **Data-Driven**: Emphasize charts, numbers, and visual indicators
 3. **Quick Actions**: Common actions (add trade, view analytics) easily accessible
@@ -327,6 +338,7 @@ maxDrawdown = max(peak - trough) over all periods
 5. **Responsive**: Adapt to different screen sizes and orientations
 
 ### Color Scheme
+
 - **Primary**: Professional blue (#2196F3)
 - **Success/Profit**: Green (#4CAF50)
 - **Loss/Danger**: Red (#F44336)
@@ -337,6 +349,7 @@ maxDrawdown = max(peak - trough) over all periods
 - **Text (Dark)**: #FFFFFF, #BDBDBD
 
 ### Typography
+
 - **Headings**: Bold, 24-32px
 - **Body**: Regular, 16px
 - **Captions**: Regular, 12-14px
@@ -345,21 +358,25 @@ maxDrawdown = max(peak - trough) over all periods
 ### Key Screens Layout
 
 #### Dashboard Screen
+
 - Top: Summary cards (Total P&L, Win Rate, Total Trades, Today's P&L)
 - Middle: Equity curve chart
 - Bottom: Recent trades list preview
 
 #### Trade List Screen
+
 - Header: Search bar and filter chips
 - Body: Scrollable list of trade cards
 - FAB: Floating action button to add new trade
 
 #### Add/Edit Trade Screen
+
 - Form sections: Trade Details, Risk Management, Journal Notes
 - Bottom: Save and Cancel buttons
 - Validation feedback inline
 
 #### Analytics Screen
+
 - Tab navigation: Overview, Performance, Strategies
 - Charts with touch interactions
 - Date range selector
@@ -367,6 +384,7 @@ maxDrawdown = max(peak - trough) over all periods
 ## Implementation Steps
 
 ### Phase 1: Project Setup (Week 1)
+
 1. Initialize React Native project with TypeScript
 2. Install and configure dependencies
 3. Set up navigation structure
@@ -375,6 +393,7 @@ maxDrawdown = max(peak - trough) over all periods
 6. Create basic theme and styling system
 
 ### Phase 2: Core Features (Weeks 2-3)
+
 1. Implement Trade Management:
    - Add/Edit trade form with validation
    - Trade list screen with filters
@@ -384,6 +403,7 @@ maxDrawdown = max(peak - trough) over all periods
 3. Create reusable UI components
 
 ### Phase 3: Journal & Analytics (Weeks 4-5)
+
 1. Add journal note functionality
 2. Implement camera/gallery image picker
 3. Create Dashboard with summary statistics
@@ -391,6 +411,7 @@ maxDrawdown = max(peak - trough) over all periods
 5. Add calendar view
 
 ### Phase 4: Advanced Features (Weeks 6-7)
+
 1. Strategy management
 2. Advanced analytics and reports
 3. Goal setting and tracking
@@ -398,6 +419,7 @@ maxDrawdown = max(peak - trough) over all periods
 5. Settings and preferences
 
 ### Phase 5: Polish & Security (Week 8)
+
 1. Add authentication (PIN, biometric)
 2. Implement cloud backup and sync
 3. Add dark theme support
@@ -406,6 +428,7 @@ maxDrawdown = max(peak - trough) over all periods
 6. Accessibility improvements
 
 ### Phase 6: Testing & Deployment (Week 9)
+
 1. Unit tests for calculations and utilities
 2. Integration tests for database operations
 3. E2E tests for critical flows
@@ -415,6 +438,7 @@ maxDrawdown = max(peak - trough) over all periods
 ## Best Practices
 
 ### Code Quality
+
 - Use TypeScript for type safety
 - Follow React Native best practices
 - Implement proper error handling
@@ -422,6 +446,7 @@ maxDrawdown = max(peak - trough) over all periods
 - Write self-documenting code with clear naming
 
 ### Performance
+
 - Use FlatList for long lists (virtualization)
 - Memoize expensive calculations
 - Optimize image loading and caching
@@ -429,12 +454,14 @@ maxDrawdown = max(peak - trough) over all periods
 - Implement pagination for large datasets
 
 ### Testing
+
 - Unit tests for business logic (calculations, validations)
 - Component tests for UI elements
 - Integration tests for database operations
 - E2E tests with Detox or Appium
 
 ### Accessibility
+
 - Proper label support for screen readers
 - Sufficient color contrast
 - Touch target sizes (minimum 44x44 points)
@@ -444,11 +471,13 @@ maxDrawdown = max(peak - trough) over all periods
 ## Additional Considerations
 
 ### Localization
+
 - Support for multiple languages
 - Currency formatting based on locale
 - Date/time formatting based on locale
 
 ### Future Enhancements
+
 - Integration with broker APIs for automatic trade import
 - Social features (share trades, compare with others)
 - AI-powered trade analysis and suggestions
@@ -461,6 +490,7 @@ maxDrawdown = max(peak - trough) over all periods
 - Apple Watch/Wear OS companion app
 
 ## Success Metrics
+
 - App stability (crash-free rate > 99%)
 - Performance (app launch < 2 seconds)
 - User retention (30-day retention > 40%)
@@ -468,6 +498,7 @@ maxDrawdown = max(peak - trough) over all periods
 - Data accuracy (100% accurate calculations)
 
 ## Compliance & Legal
+
 - Include proper disclaimers (not financial advice)
 - Privacy policy for data handling
 - Terms of service
@@ -481,12 +512,14 @@ maxDrawdown = max(peak - trough) over all periods
 To implement this trading journal app:
 
 1. **Initialize the project**:
+
 ```bash
 npx react-native init TradingJournal --template react-native-template-typescript
 cd TradingJournal
 ```
 
 2. **Install core dependencies**:
+
 ```bash
 npm install @react-navigation/native @react-navigation/stack @react-navigation/bottom-tabs
 npm install @reduxjs/toolkit react-redux
@@ -506,6 +539,7 @@ npm install styled-components
 5. **Iterate**: Get feedback early and iterate on design and functionality.
 
 This prompt provides a comprehensive blueprint for building a professional trading journal app that traders will love to use!
+
 # Trading Journal App - Features Summary
 
 ## Quick Reference Guide
@@ -515,6 +549,7 @@ This document provides a high-level overview of all features included in the tra
 ## Core Modules
 
 ### 📊 Trade Management
+
 - Add/Edit/Delete trades
 - Trade list with filters and search
 - Detailed trade view
@@ -523,6 +558,7 @@ This document provides a high-level overview of all features included in the tra
 - Risk management fields (Stop Loss, Take Profit)
 
 ### 📝 Journal & Documentation
+
 - Pre-trade analysis notes
 - Post-trade review and lessons
 - Emotional state tracking
@@ -532,6 +568,7 @@ This document provides a high-level overview of all features included in the tra
 - Voice notes support
 
 ### 📈 Analytics Dashboard
+
 - Real-time P&L tracking
 - Win rate statistics
 - Profit factor
@@ -541,18 +578,21 @@ This document provides a high-level overview of all features included in the tra
 - Performance charts by time period
 
 ### 🎯 Strategy Management
+
 - Create and track trading strategies
 - Assign trades to strategies
 - Compare strategy performance
 - Strategy-specific analytics
 
 ### 📅 Calendar View
+
 - Visual trading calendar
 - Daily P&L color coding
 - Trade count per day
 - Monthly summaries
 
 ### 🎯 Goal Setting
+
 - Set profit targets
 - Track drawdown limits
 - Daily trade limits
@@ -560,6 +600,7 @@ This document provides a high-level overview of all features included in the tra
 - Progress visualization
 
 ### 📑 Reports & Export
+
 - Generate PDF reports
 - Export to CSV
 - Tax documentation
@@ -567,6 +608,7 @@ This document provides a high-level overview of all features included in the tra
 - Email/Share capabilities
 
 ### ⚙️ Settings
+
 - User profile
 - Currency preferences
 - Commission settings
@@ -574,12 +616,14 @@ This document provides a high-level overview of all features included in the tra
 - Backup & Restore
 
 ### 🔒 Security
+
 - PIN/Password protection
 - Biometric authentication
 - Data encryption
 - Privacy controls
 
 ### ☁️ Cloud Features
+
 - Automatic backup
 - Multi-device sync
 - Offline mode support
@@ -613,7 +657,7 @@ Launch App → [Auth] → Dashboard
     Trade List      Analytics        Calendar
          ↓               ↓               ↓
     Add Trade      Charts/Stats    Day Details
-         ↓               
+         ↓
    Trade Detail → Journal Notes → Screenshots
 ```
 
@@ -649,16 +693,18 @@ Analytics (Calculated)
 ✅ Smooth animations and transitions  
 ✅ Comprehensive analytics  
 ✅ Secure data handling  
-✅ High user satisfaction (>4.5★)  
+✅ High user satisfaction (>4.5★)
 
 ---
 
 For complete technical specifications, see [COPILOT_PROMPT.md](./COPILOT_PROMPT.md)
+
 # Quick Start Guide
 
 ## Prerequisites
 
 Before you begin, ensure you have the following installed:
+
 - Node.js (v14 or higher)
 - npm or yarn
 - React Native development environment:
@@ -725,7 +771,9 @@ cd ..
 ### Step 4: Configure Dependencies
 
 #### React Native Reanimated
+
 Add to `babel.config.js`:
+
 ```javascript
 module.exports = {
   presets: ['module:metro-react-native-babel-preset'],
@@ -734,7 +782,9 @@ module.exports = {
 ```
 
 #### Vector Icons
+
 Link the fonts in `android/app/build.gradle`:
+
 ```gradle
 project.ext.vectoricons = [
     iconFontNames: ['MaterialIcons.ttf', 'MaterialCommunityIcons.ttf']
@@ -756,6 +806,7 @@ mkdir -p assets/{images,icons,fonts}
 ### Step 6: Configure TypeScript
 
 Update `tsconfig.json`:
+
 ```json
 {
   "compilerOptions": {
@@ -805,11 +856,13 @@ npx react-native run-android
 ## Development Workflow
 
 ### 1. Start Metro Bundler
+
 ```bash
 npm start
 ```
 
 ### 2. Run on Device/Emulator
+
 ```bash
 # iOS Simulator
 npm run ios
@@ -825,6 +878,7 @@ npm run android
 ```
 
 ### 3. Debug
+
 - Press `Cmd + D` (iOS) or `Cmd + M` (Android) to open developer menu
 - Enable Hot Reloading for faster development
 - Use React Native Debugger or Flipper for advanced debugging

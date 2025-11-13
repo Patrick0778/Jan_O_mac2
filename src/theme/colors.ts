@@ -7,7 +7,7 @@ export const colors = {
   loss: '#F44336',
   warning: '#FF9800',
   info: '#00BCD4',
-  
+
   // Light theme
   light: {
     background: '#FFFFFF',
@@ -17,7 +17,7 @@ export const colors = {
     border: '#E0E0E0',
     card: '#FFFFFF',
   },
-  
+
   // Dark theme
   dark: {
     background: '#121212',

@@ -1,9 +1,9 @@
 /**
  * Profile Screen
- * 
+ *
  * Allows users to create and edit their trading profile.
  * All data is stored locally using AsyncStorage - no cloud sync.
- * 
+ *
  * Features:
  * - Create new profile (first-time users)
  * - Edit existing profile
@@ -11,14 +11,14 @@
  * - Local storage only - no region or tax fields
  */
 
-import React, { useState, useEffect } from 'react';
-import { View, ScrollView, StyleSheet, Alert } from 'react-native';
-import { TextInput, Button, Card, Text, HelperText } from 'react-native-paper';
-import { saveProfile, loadProfile, Profile } from '../services/localStorage';
-import { spacing } from '../theme/spacing';
-import { v4 as uuidv4 } from 'uuid';
+import React, {useState, useEffect} from 'react';
+import {View, ScrollView, StyleSheet, Alert} from 'react-native';
+import {TextInput, Button, Card, Text, HelperText} from 'react-native-paper';
+import {saveProfile, loadProfile, Profile} from '../services/localStorage';
+import {spacing} from '../theme/spacing';
+import {v4 as uuidv4} from 'uuid';
 
-const ProfileScreen = ({ navigation }: any) => {
+const ProfileScreen = ({navigation}: any) => {
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -84,16 +84,18 @@ const ProfileScreen = ({ navigation }: any) => {
       }
 
       await saveProfile(profile);
-      
+
       Alert.alert(
         'Success',
-        profileExists ? 'Profile updated successfully!' : 'Profile created successfully!',
+        profileExists
+          ? 'Profile updated successfully!'
+          : 'Profile created successfully!',
         [
           {
             text: 'OK',
             onPress: () => navigation.goBack(),
           },
-        ]
+        ],
       );
     } catch (error) {
       console.error('Error saving profile:', error);
@@ -111,8 +113,8 @@ const ProfileScreen = ({ navigation }: any) => {
             {profileExists ? 'Edit Profile' : 'Create Your Profile'}
           </Text>
           <Text variant="bodyMedium" style={styles.subtitle}>
-            Your profile is stored locally on this device only.
-            No data is sent to the cloud.
+            Your profile is stored locally on this device only. No data is sent
+            to the cloud.
           </Text>
 
           <TextInput
@@ -136,7 +138,9 @@ const ProfileScreen = ({ navigation }: any) => {
             keyboardType="email-address"
             autoCapitalize="none"
           />
-          <HelperText type="info">Optional - for your reference only</HelperText>
+          <HelperText type="info">
+            Optional - for your reference only
+          </HelperText>
 
           <TextInput
             label="Starting Capital *"
@@ -168,8 +172,7 @@ const ProfileScreen = ({ navigation }: any) => {
             onPress={handleSaveProfile}
             loading={loading}
             disabled={loading}
-            style={styles.button}
-          >
+            style={styles.button}>
             {profileExists ? 'Update Profile' : 'Create Profile'}
           </Button>
 
@@ -177,8 +180,7 @@ const ProfileScreen = ({ navigation }: any) => {
             <Button
               mode="outlined"
               onPress={() => navigation.goBack()}
-              style={styles.cancelButton}
-            >
+              style={styles.cancelButton}>
               Cancel
             </Button>
           )}
@@ -191,10 +193,9 @@ const ProfileScreen = ({ navigation }: any) => {
             📱 Local Storage Only
           </Text>
           <Text variant="bodySmall">
-            • All your data is stored locally on this device{'\n'}
-            • No cloud sync or remote backup{'\n'}
-            • You can export your data as JSON backup{'\n'}
-            • Complete privacy - your data never leaves this device
+            • All your data is stored locally on this device{'\n'}• No cloud
+            sync or remote backup{'\n'}• You can export your data as JSON backup
+            {'\n'}• Complete privacy - your data never leaves this device
           </Text>
         </Card.Content>
       </Card>

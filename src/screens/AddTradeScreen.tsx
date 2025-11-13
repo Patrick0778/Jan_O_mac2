@@ -53,7 +53,7 @@ const AddTradeScreen = ({navigation}: any) => {
 
           <SegmentedButtons
             value={assetClass}
-            onValueChange={(value) => setAssetClass(value as AssetClass)}
+            onValueChange={value => setAssetClass(value as AssetClass)}
             buttons={[
               {value: 'Stocks', label: 'Stocks'},
               {value: 'Forex', label: 'Forex'},
@@ -64,7 +64,7 @@ const AddTradeScreen = ({navigation}: any) => {
 
           <SegmentedButtons
             value={direction}
-            onValueChange={(value) => setDirection(value as TradeDirection)}
+            onValueChange={value => setDirection(value as TradeDirection)}
             buttons={[
               {value: 'Long', label: 'Long'},
               {value: 'Short', label: 'Short'},

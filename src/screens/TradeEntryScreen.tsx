@@ -1,30 +1,36 @@
 /**
  * Trade Entry Screen
- * 
+ *
  * Manual trade entry screen for local-only data storage.
  * Users manually enter all trade information - no automatic price fetching.
- * 
+ *
  * Features:
  * - Manual entry of all trade details (symbol, prices, quantity, fees)
  * - Support for Long/Short positions
  * - Optional exit data for closed trades
  * - Notes field for trade documentation
  * - All data stored locally using AsyncStorage
- * 
+ *
  * No Network Features:
  * - No automatic price fetching from APIs
  * - No market data integration
  * - No cloud sync
  */
 
-import React, { useState } from 'react';
-import { View, ScrollView, StyleSheet, Alert } from 'react-native';
-import { TextInput, Button, Card, Text, SegmentedButtons } from 'react-native-paper';
-import { addTrade, Trade } from '../services/localStorage';
-import { spacing } from '../theme/spacing';
-import { v4 as uuidv4 } from 'uuid';
+import React, {useState} from 'react';
+import {View, ScrollView, StyleSheet, Alert} from 'react-native';
+import {
+  TextInput,
+  Button,
+  Card,
+  Text,
+  SegmentedButtons,
+} from 'react-native-paper';
+import {addTrade, Trade} from '../services/localStorage';
+import {spacing} from '../theme/spacing';
+import {v4 as uuidv4} from 'uuid';
 
-const TradeEntryScreen = ({ navigation }: any) => {
+const TradeEntryScreen = ({navigation}: any) => {
   const [loading, setLoading] = useState(false);
   const [symbol, setSymbol] = useState('');
   const [tradeType, setTradeType] = useState<'Long' | 'Short'>('Long');
@@ -65,7 +71,10 @@ const TradeEntryScreen = ({ navigation }: any) => {
     if (isOpen === 'closed') {
       exitNum = parseFloat(exitPrice);
       if (isNaN(exitNum) || exitNum <= 0) {
-        Alert.alert('Validation Error', 'Please enter a valid exit price for closed trade');
+        Alert.alert(
+          'Validation Error',
+          'Please enter a valid exit price for closed trade',
+        );
         return;
       }
     }
@@ -91,29 +100,25 @@ const TradeEntryScreen = ({ navigation }: any) => {
 
       await addTrade(trade);
 
-      Alert.alert(
-        'Success',
-        'Trade saved successfully!',
-        [
-          {
-            text: 'Add Another',
-            onPress: () => {
-              // Reset form
-              setSymbol('');
-              setQuantity('');
-              setEntryPrice('');
-              setExitPrice('');
-              setFees('0');
-              setNotes('');
-              setIsOpen('open');
-            },
+      Alert.alert('Success', 'Trade saved successfully!', [
+        {
+          text: 'Add Another',
+          onPress: () => {
+            // Reset form
+            setSymbol('');
+            setQuantity('');
+            setEntryPrice('');
+            setExitPrice('');
+            setFees('0');
+            setNotes('');
+            setIsOpen('open');
           },
-          {
-            text: 'Done',
-            onPress: () => navigation.goBack(),
-          },
-        ]
-      );
+        },
+        {
+          text: 'Done',
+          onPress: () => navigation.goBack(),
+        },
+      ]);
     } catch (error) {
       console.error('Error saving trade:', error);
       Alert.alert('Error', 'Failed to save trade. Please try again.');
@@ -151,8 +156,8 @@ const TradeEntryScreen = ({ navigation }: any) => {
             Manual Trade Entry
           </Text>
           <Text variant="bodyMedium" style={styles.subtitle}>
-            All prices and data are manually entered.
-            Trade is saved locally on this device only.
+            All prices and data are manually entered. Trade is saved locally on
+            this device only.
           </Text>
 
           <TextInput
@@ -170,10 +175,10 @@ const TradeEntryScreen = ({ navigation }: any) => {
           </Text>
           <SegmentedButtons
             value={tradeType}
-            onValueChange={(value) => setTradeType(value as 'Long' | 'Short')}
+            onValueChange={value => setTradeType(value as 'Long' | 'Short')}
             buttons={[
-              { value: 'Long', label: 'Long' },
-              { value: 'Short', label: 'Short' },
+              {value: 'Long', label: 'Long'},
+              {value: 'Short', label: 'Short'},
             ]}
             style={styles.input}
           />
@@ -205,8 +210,8 @@ const TradeEntryScreen = ({ navigation }: any) => {
             value={isOpen}
             onValueChange={setIsOpen}
             buttons={[
-              { value: 'open', label: 'Open' },
-              { value: 'closed', label: 'Closed' },
+              {value: 'open', label: 'Open'},
+              {value: 'closed', label: 'Closed'},
             ]}
             style={styles.input}
           />
@@ -258,16 +263,14 @@ const TradeEntryScreen = ({ navigation }: any) => {
             onPress={handleSaveTrade}
             loading={loading}
             disabled={loading}
-            style={styles.button}
-          >
+            style={styles.button}>
             Save Trade
           </Button>
 
           <Button
             mode="outlined"
             onPress={() => navigation.goBack()}
-            style={styles.cancelButton}
-          >
+            style={styles.cancelButton}>
             Cancel
           </Button>
         </Card.Content>
@@ -279,10 +282,9 @@ const TradeEntryScreen = ({ navigation }: any) => {
             💡 Manual Entry Only
           </Text>
           <Text variant="bodySmall">
-            • Enter all prices manually - no automatic fetching{'\n'}
-            • Data is saved locally on this device{'\n'}
-            • No network connection required{'\n'}
-            • Your trades remain completely private
+            • Enter all prices manually - no automatic fetching{'\n'}• Data is
+            saved locally on this device{'\n'}• No network connection required
+            {'\n'}• Your trades remain completely private
           </Text>
         </Card.Content>
       </Card>

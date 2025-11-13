@@ -1,18 +1,18 @@
 /**
  * Tax & Region Removed Notice Component
- * 
+ *
  * This component displays a notice explaining that tax calculation
  * and region selection features have been intentionally removed
  * as part of the local-only architecture conversion.
- * 
+ *
  * Use this component in places where tax/region features would
  * have been displayed in the original app.
  */
 
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Card, Text } from 'react-native-paper';
-import { spacing } from '../theme/spacing';
+import {View, StyleSheet} from 'react-native';
+import {Card, Text} from 'react-native-paper';
+import {spacing} from '../theme/spacing';
 
 interface TaxRegionRemovedNoticeProps {
   variant?: 'default' | 'compact';
@@ -28,7 +28,8 @@ const TaxRegionRemovedNotice: React.FC<TaxRegionRemovedNoticeProps> = ({
       <Card style={[styles.compactCard, style]}>
         <Card.Content style={styles.compactContent}>
           <Text variant="bodySmall" style={styles.compactText}>
-            ℹ️ Tax and region features have been removed. This app is now fully local-only.
+            ℹ️ Tax and region features have been removed. This app is now fully
+            local-only.
           </Text>
         </Card.Content>
       </Card>
@@ -46,11 +47,13 @@ const TaxRegionRemovedNotice: React.FC<TaxRegionRemovedNoticeProps> = ({
           removed from this version of the app.
         </Text>
         <Text variant="bodyMedium" style={styles.body}>
-          This app now operates in a <Text style={styles.bold}>fully local-only mode</Text>,
-          with no cloud services, network requests, or tax-related functionality.
+          This app now operates in a{' '}
+          <Text style={styles.bold}>fully local-only mode</Text>, with no cloud
+          services, network requests, or tax-related functionality.
         </Text>
         <Text variant="bodySmall" style={styles.footer}>
-          All your trading data is stored locally on this device and remains completely private.
+          All your trading data is stored locally on this device and remains
+          completely private.
         </Text>
       </Card.Content>
     </Card>

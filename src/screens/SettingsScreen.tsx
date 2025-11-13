@@ -5,13 +5,20 @@ import {useSelector, useDispatch} from 'react-redux';
 import {RootState} from '../redux/store';
 import {updateSettings} from '../redux/slices/settingsSlice';
 import {spacing} from '../theme/spacing';
-import {clearAllLocalData, exportTradesJson, getStorageStats} from '../services/localStorage';
+import {
+  clearAllLocalData,
+  exportTradesJson,
+  getStorageStats,
+} from '../services/localStorage';
 import TaxRegionRemovedNotice from '../components/TaxRegionRemovedNotice';
 
 const SettingsScreen = ({navigation}: any) => {
   const settings = useSelector((state: RootState) => state.settings);
   const dispatch = useDispatch();
-  const [storageStats, setStorageStats] = React.useState({profileExists: false, tradeCount: 0});
+  const [storageStats, setStorageStats] = React.useState({
+    profileExists: false,
+    tradeCount: 0,
+  });
 
   React.useEffect(() => {
     loadStorageStats();
@@ -37,10 +44,13 @@ const SettingsScreen = ({navigation}: any) => {
             onPress: () => {
               // In production, use Clipboard API
               console.log('Export data:', jsonData);
-              Alert.alert('Success', 'Data copied to logs (in production, would copy to clipboard)');
+              Alert.alert(
+                'Success',
+                'Data copied to logs (in production, would copy to clipboard)',
+              );
             },
           },
-        ]
+        ],
       );
     } catch (error) {
       Alert.alert('Error', 'Failed to export data');
@@ -66,7 +76,7 @@ const SettingsScreen = ({navigation}: any) => {
             }
           },
         },
-      ]
+      ],
     );
   };
 
@@ -76,7 +86,9 @@ const SettingsScreen = ({navigation}: any) => {
         <List.Subheader>Profile</List.Subheader>
         <List.Item
           title="Manage Profile"
-          description={storageStats.profileExists ? 'Profile exists' : 'No profile created'}
+          description={
+            storageStats.profileExists ? 'Profile exists' : 'No profile created'
+          }
           left={props => <List.Icon {...props} icon="account" />}
           onPress={() => navigation.navigate('Profile')}
         />
@@ -91,7 +103,7 @@ const SettingsScreen = ({navigation}: any) => {
           right={() => (
             <Switch
               value={settings.theme === 'dark'}
-              onValueChange={(value) => 
+              onValueChange={value =>
                 dispatch(updateSettings({theme: value ? 'dark' : 'light'}))
               }
             />
@@ -103,7 +115,7 @@ const SettingsScreen = ({navigation}: any) => {
           right={() => (
             <Switch
               value={settings.notificationsEnabled}
-              onValueChange={(value) => 
+              onValueChange={value =>
                 dispatch(updateSettings({notificationsEnabled: value}))
               }
             />
@@ -115,7 +127,7 @@ const SettingsScreen = ({navigation}: any) => {
           right={() => (
             <Switch
               value={settings.biometricEnabled}
-              onValueChange={(value) => 
+              onValueChange={value =>
                 dispatch(updateSettings({biometricEnabled: value}))
               }
             />
@@ -130,10 +142,7 @@ const SettingsScreen = ({navigation}: any) => {
           description={`$${settings.startingCapital.toLocaleString()}`}
         />
         <Divider />
-        <List.Item
-          title="Currency"
-          description={settings.currency}
-        />
+        <List.Item title="Currency" description={settings.currency} />
         <Divider />
         <List.Item
           title="Default Commission"
@@ -168,10 +177,7 @@ const SettingsScreen = ({navigation}: any) => {
 
       <List.Section>
         <List.Subheader>About</List.Subheader>
-        <List.Item
-          title="Version"
-          description="1.0.0 (Local-Only)"
-        />
+        <List.Item title="Version" description="1.0.0 (Local-Only)" />
         <List.Item
           title="Data Storage"
           description="All data stored locally on this device"

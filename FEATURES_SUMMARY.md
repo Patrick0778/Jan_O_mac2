@@ -7,6 +7,7 @@ This document provides a high-level overview of all features included in the tra
 ## Core Modules
 
 ### 📊 Trade Management
+
 - Add/Edit/Delete trades
 - Trade list with filters and search
 - Detailed trade view
@@ -15,6 +16,7 @@ This document provides a high-level overview of all features included in the tra
 - Risk management fields (Stop Loss, Take Profit)
 
 ### 📝 Journal & Documentation
+
 - Pre-trade analysis notes
 - Post-trade review and lessons
 - Emotional state tracking
@@ -24,6 +26,7 @@ This document provides a high-level overview of all features included in the tra
 - Voice notes support
 
 ### 📈 Analytics Dashboard
+
 - Real-time P&L tracking
 - Win rate statistics
 - Profit factor
@@ -33,18 +36,21 @@ This document provides a high-level overview of all features included in the tra
 - Performance charts by time period
 
 ### 🎯 Strategy Management
+
 - Create and track trading strategies
 - Assign trades to strategies
 - Compare strategy performance
 - Strategy-specific analytics
 
 ### 📅 Calendar View
+
 - Visual trading calendar
 - Daily P&L color coding
 - Trade count per day
 - Monthly summaries
 
 ### 🎯 Goal Setting
+
 - Set profit targets
 - Track drawdown limits
 - Daily trade limits
@@ -52,6 +58,7 @@ This document provides a high-level overview of all features included in the tra
 - Progress visualization
 
 ### 📑 Reports & Export
+
 - Generate PDF reports
 - Export to CSV
 - Tax documentation
@@ -59,6 +66,7 @@ This document provides a high-level overview of all features included in the tra
 - Email/Share capabilities
 
 ### ⚙️ Settings
+
 - User profile
 - Currency preferences
 - Commission settings
@@ -66,12 +74,14 @@ This document provides a high-level overview of all features included in the tra
 - Backup & Restore
 
 ### 🔒 Security
+
 - PIN/Password protection
 - Biometric authentication
 - Data encryption
 - Privacy controls
 
 ### ☁️ Cloud Features
+
 - Automatic backup
 - Multi-device sync
 - Offline mode support
@@ -105,7 +115,7 @@ Launch App → [Auth] → Dashboard
     Trade List      Analytics        Calendar
          ↓               ↓               ↓
     Add Trade      Charts/Stats    Day Details
-         ↓               
+         ↓
    Trade Detail → Journal Notes → Screenshots
 ```
 
@@ -141,7 +151,7 @@ Analytics (Calculated)
 ✅ Smooth animations and transitions  
 ✅ Comprehensive analytics  
 ✅ Secure data handling  
-✅ High user satisfaction (>4.5★)  
+✅ High user satisfaction (>4.5★)
 
 ---
 

@@ -67,6 +67,7 @@ npm list uuid
 AsyncStorage is used for local data persistence. No additional configuration required.
 
 **Storage Location:**
+
 - iOS: Documents directory
 - Android: AsyncStorage database
 
@@ -75,10 +76,12 @@ AsyncStorage is used for local data persistence. No additional configuration req
 Used for generating PDF reports locally.
 
 **Permissions Required:**
+
 - iOS: No special permissions needed
 - Android: WRITE_EXTERNAL_STORAGE (for saving PDFs)
 
 Add to `android/app/src/main/AndroidManifest.xml`:
+
 ```xml
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 ```
@@ -116,11 +119,13 @@ npm run android
 If AsyncStorage isn't working:
 
 1. Clear Metro cache:
+
 ```bash
 npm start -- --reset-cache
 ```
 
 2. Reinstall pods (iOS):
+
 ```bash
 cd ios && pod install && cd ..
 ```
@@ -131,11 +136,13 @@ If PDF generation fails:
 
 1. Check storage permissions (Android)
 2. Verify `react-native-html-to-pdf` is linked:
+
 ```bash
 npm list react-native-html-to-pdf
 ```
 
 3. On iOS, ensure pods are up to date:
+
 ```bash
 cd ios && pod install && cd ..
 ```
@@ -145,6 +152,7 @@ cd ios && pod install && cd ..
 If you encounter build errors after installation:
 
 1. Clean the build:
+
 ```bash
 # iOS
 cd ios && xcodebuild clean && cd ..
@@ -154,6 +162,7 @@ cd android && ./gradlew clean && cd ..
 ```
 
 2. Reinstall dependencies:
+
 ```bash
 rm -rf node_modules
 npm install
@@ -188,6 +197,7 @@ After successful installation:
 ## Support
 
 For issues related to:
+
 - **AsyncStorage**: Check [official docs](https://react-native-async-storage.github.io/async-storage/)
 - **PDF Generation**: Check [react-native-html-to-pdf docs](https://github.com/christopherdro/react-native-html-to-pdf)
 - **Share Dialog**: Check [react-native-share docs](https://react-native-share.github.io/react-native-share/)

@@ -7,7 +7,9 @@ const AnalyticsScreen = () => {
   return (
     <View style={styles.container}>
       <Title>Analytics</Title>
-      <Text style={styles.text}>Charts and performance metrics will be displayed here</Text>
+      <Text style={styles.text}>
+        Charts and performance metrics will be displayed here
+      </Text>
     </View>
   );
 };

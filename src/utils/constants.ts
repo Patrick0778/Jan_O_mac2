@@ -1,4 +1,10 @@
-export const ASSET_CLASSES = ['Stocks', 'Forex', 'Crypto', 'Options', 'Futures'] as const;
+export const ASSET_CLASSES = [
+  'Stocks',
+  'Forex',
+  'Crypto',
+  'Options',
+  'Futures',
+] as const;
 export const TRADE_DIRECTIONS = ['Long', 'Short'] as const;
 
 export const COMMISSION_PRESETS = {

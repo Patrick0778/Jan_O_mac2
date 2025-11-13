@@ -7,7 +7,9 @@ const CalendarScreen = () => {
   return (
     <View style={styles.container}>
       <Title>Trading Calendar</Title>
-      <Text style={styles.text}>Calendar view with daily P&L will be displayed here</Text>
+      <Text style={styles.text}>
+        Calendar view with daily P&L will be displayed here
+      </Text>
     </View>
   );
 };

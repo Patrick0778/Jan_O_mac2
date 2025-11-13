@@ -1,15 +1,15 @@
 /**
  * Local PDF Export Utility
- * 
+ *
  * Generates PDF reports locally using react-native-html-to-pdf.
  * All PDF generation happens on-device - no server-side rendering.
- * 
+ *
  * Features:
  * - Generate trading performance PDF locally
  * - Create HTML template with trade data
  * - Save PDF to local file system
  * - Return file path for sharing via native share dialog
- * 
+ *
  * No Network Operations:
  * - No upload to cloud storage
  * - No server-side PDF generation
@@ -17,19 +17,19 @@
  */
 
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
-import { Trade, Profile } from '../services/localStorage';
+import {Trade, Profile} from '../services/localStorage';
 
 /**
  * Generate HTML content for trade performance PDF
  */
 const generateTradeReportHtml = (
   profile: Profile | null,
-  trades: Trade[]
+  trades: Trade[],
 ): string => {
   // Calculate statistics
   const closedTrades = trades.filter(t => t.exitPrice !== undefined);
   const totalTrades = closedTrades.length;
-  
+
   let totalPnL = 0;
   let wins = 0;
   let losses = 0;
@@ -38,18 +38,21 @@ const generateTradeReportHtml = (
     if (trade.exitPrice) {
       let pnl: number;
       if (trade.type === 'Long') {
-        pnl = (trade.exitPrice - trade.entryPrice) * trade.quantity - trade.fees;
+        pnl =
+          (trade.exitPrice - trade.entryPrice) * trade.quantity - trade.fees;
       } else {
-        pnl = (trade.entryPrice - trade.exitPrice) * trade.quantity - trade.fees;
+        pnl =
+          (trade.entryPrice - trade.exitPrice) * trade.quantity - trade.fees;
       }
-      
+
       totalPnL += pnl;
       if (pnl > 0) wins++;
       else if (pnl < 0) losses++;
     }
   });
 
-  const winRate = totalTrades > 0 ? ((wins / totalTrades) * 100).toFixed(2) : '0.00';
+  const winRate =
+    totalTrades > 0 ? ((wins / totalTrades) * 100).toFixed(2) : '0.00';
 
   // Build HTML
   const html = `
@@ -130,7 +133,13 @@ const generateTradeReportHtml = (
         <h1>Trading Performance Report</h1>
         <p><strong>Generated:</strong> ${new Date().toLocaleString()}</p>
         ${profile ? `<p><strong>Trader:</strong> ${profile.name}</p>` : ''}
-        ${profile ? `<p><strong>Starting Capital:</strong> ${profile.currency} ${profile.startingCapital.toLocaleString()}</p>` : ''}
+        ${
+          profile
+            ? `<p><strong>Starting Capital:</strong> ${
+                profile.currency
+              } ${profile.startingCapital.toLocaleString()}</p>`
+            : ''
+        }
       </div>
 
       <h2>Summary Statistics</h2>
@@ -176,12 +185,16 @@ const generateTradeReportHtml = (
           </tr>
         </thead>
         <tbody>
-          ${closedTrades.map(trade => {
-            const pnl = trade.type === 'Long'
-              ? ((trade.exitPrice! - trade.entryPrice) * trade.quantity - trade.fees)
-              : ((trade.entryPrice - trade.exitPrice!) * trade.quantity - trade.fees);
-            
-            return `
+          ${closedTrades
+            .map(trade => {
+              const pnl =
+                trade.type === 'Long'
+                  ? (trade.exitPrice! - trade.entryPrice) * trade.quantity -
+                    trade.fees
+                  : (trade.entryPrice - trade.exitPrice!) * trade.quantity -
+                    trade.fees;
+
+              return `
               <tr>
                 <td>${trade.symbol}</td>
                 <td>${trade.type}</td>
@@ -193,7 +206,8 @@ const generateTradeReportHtml = (
                 </td>
               </tr>
             `;
-          }).join('')}
+            })
+            .join('')}
         </tbody>
       </table>
 
@@ -210,18 +224,18 @@ const generateTradeReportHtml = (
 
 /**
  * Generate trading performance PDF
- * 
+ *
  * @param profile - User profile (optional)
  * @param trades - Array of trades to include
  * @returns Promise with file path to generated PDF
  */
 export const generateTradePdf = async (
   profile: Profile | null,
-  trades: Trade[]
+  trades: Trade[],
 ): Promise<string> => {
   try {
     const html = generateTradeReportHtml(profile, trades);
-    
+
     const options = {
       html,
       fileName: `trading_report_${Date.now()}`,
@@ -229,7 +243,7 @@ export const generateTradePdf = async (
     };
 
     const file = await RNHTMLtoPDF.convert(options);
-    
+
     if (!file.filePath) {
       throw new Error('PDF generation failed - no file path returned');
     }
@@ -245,7 +259,7 @@ export const generateTradePdf = async (
 /**
  * Generate a simple CSV export of trades
  * Alternative to PDF for data export
- * 
+ *
  * @param trades - Array of trades to export
  * @returns CSV string
  */

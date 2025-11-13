@@ -1,9 +1,11 @@
 # Jan_O_mac2
+
 Trading Journal App - A Professional Trading Journal Application
 
 ## ⚠️ Local-Only Architecture
 
 **This app operates in a fully local-only mode:**
+
 - ✅ All data stored locally on your device using AsyncStorage
 - ✅ Complete privacy - no cloud sync or network requests for user data
 - ✅ Manual trade entry only - no automatic price fetching
@@ -14,15 +16,18 @@ Trading Journal App - A Professional Trading Journal Application
 See [docs/LOCAL_ONLY_README.md](./docs/LOCAL_ONLY_README.md) for complete documentation.
 
 ## Overview
+
 A professional React Native trading journal application that helps traders track, analyze, and improve their trading performance across multiple asset classes including stocks, forex, crypto, options, and futures.
 
 ## 📖 Documentation
 
 ### Complete Specification
+
 - **[prompt.md](./prompt.md)** - Complete consolidated prompt with all specifications, features, and setup instructions
 - **[docs/LOCAL_ONLY_README.md](./docs/LOCAL_ONLY_README.md)** - ⭐ Local-only architecture documentation
 
-### Additional Resources  
+### Additional Resources
+
 - **[.github/COPILOT_PROMPT.md](./.github/COPILOT_PROMPT.md)** - Detailed development guidelines for local-only features
 - **[COPILOT_PROMPT.md](./COPILOT_PROMPT.md)** - Detailed development specifications (legacy)
 - **[FEATURES_SUMMARY.md](./FEATURES_SUMMARY.md)** - Quick feature reference
@@ -31,6 +36,7 @@ A professional React Native trading journal application that helps traders track
 ## ✨ Key Features
 
 ### Core Functionality
+
 - **Trade Management** - Add, edit, and track trades with detailed information
 - **Performance Analytics** - Real-time P&L, win rate, profit factor, and more
 - **Journal Entries** - Document pre/post-trade analysis and emotional states
@@ -40,13 +46,14 @@ A professional React Native trading journal application that helps traders track
 - **Reports & Export** - Generate reports and export data
 
 ### Current Implementation
+
 ✅ Project structure initialized  
 ✅ Redux store with trades, strategies, and settings  
 ✅ Basic navigation (Tab + Stack navigators)  
 ✅ Core screens (Dashboard, Trade List, Add Trade, Settings)  
 ✅ Theme system with light/dark mode support  
 ✅ Trade calculations and formatting utilities  
-✅ TypeScript models and type safety  
+✅ TypeScript models and type safety
 
 ## 🛠 Technology Stack
 
@@ -83,6 +90,7 @@ trading-journal/
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Node.js (v16+)
 - npm or yarn
 - React Native development environment
@@ -91,6 +99,7 @@ trading-journal/
 ### Installation
 
 1. **Install dependencies**:
+
 ```bash
 npm install
 # or
@@ -98,19 +107,22 @@ yarn install
 ```
 
 2. **Install iOS dependencies** (Mac only):
+
 ```bash
 cd ios && pod install && cd ..
 ```
 
 3. **New dependencies for local-only features**:
+
    - `@react-native-async-storage/async-storage` - Local data storage
    - `react-native-html-to-pdf` - PDF generation
    - `react-native-share` - Native share dialog
    - `uuid` - Unique ID generation
-   
+
    These are already included in package.json and will be installed with `npm install`.
 
-3. **Run the app**:
+4. **Run the app**:
+
 ```bash
 # iOS
 npm run ios
@@ -133,11 +145,13 @@ npm run format        # Format code
 ## 📱 Current Features
 
 ### Dashboard
+
 - Overview statistics (Total P&L, Win Rate, Total Trades)
 - Quick access to recent trades
 - Real-time performance metrics
 
 ### Trade Management
+
 - Add new trades with symbol, price, quantity, direction
 - Support for multiple asset classes
 - Long/Short position tracking
@@ -146,6 +160,7 @@ npm run format        # Format code
 - Trade detail view (in progress)
 
 ### Settings
+
 - Theme toggle (Light/Dark)
 - Notification preferences
 - Biometric authentication toggle

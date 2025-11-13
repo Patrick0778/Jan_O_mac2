@@ -7,12 +7,28 @@ import {colors} from '../theme/colors';
 import {spacing} from '../theme/spacing';
 import {loadProfile, loadTrades} from '../services/localStorage';
 import TaxRegionRemovedNotice from '../components/TaxRegionRemovedNotice';
+import {StatCard} from '../components/common/StatCard';
+import {EquityCurveChart} from '../components/analytics/EquityCurveChart';
+import {
+  calculateTotalPnL,
+  calculateWinRate,
+  calculateProfitFactor,
+  calculateAverageWin,
+  calculateAverageLoss,
+  calculateLargestWin,
+  calculateLargestLoss,
+  calculateCurrentStreak,
+  calculateMaximumDrawdown,
+  calculateExpectancy,
+  calculateEquityCurve,
+} from '../services/calculations';
+import {formatCurrency, formatPercentage} from '../utils/formatting';
 
 const DashboardScreen = ({navigation}: any) => {
   const trades = useSelector((state: RootState) => state.trades.items);
   const [localProfile, setLocalProfile] = useState<any>(null);
   const [localTrades, setLocalTrades] = useState<any[]>([]);
-  
+
   useEffect(() => {
     loadLocalData();
   }, []);
@@ -27,104 +43,152 @@ const DashboardScreen = ({navigation}: any) => {
       console.error('Error loading local data:', error);
     }
   };
-  
-  // Calculate statistics
+
+  // Calculate comprehensive statistics
+  const totalPnl = calculateTotalPnL(trades);
+  const winRate = calculateWinRate(trades);
+  const profitFactor = calculateProfitFactor(trades);
+  const averageWin = calculateAverageWin(trades);
+  const averageLoss = calculateAverageLoss(trades);
+  const largestWin = calculateLargestWin(trades);
+  const largestLoss = calculateLargestLoss(trades);
+  const currentStreak = calculateCurrentStreak(trades);
+  const maxDrawdown = calculateMaximumDrawdown(trades);
+  const expectancy = calculateExpectancy(trades);
+  const equityCurve = calculateEquityCurve(trades);
+
   const totalTrades = trades.length;
   const closedTrades = trades.filter(t => t.exitPrice !== undefined);
-  const winningTrades = closedTrades.filter(t => {
-    const pnl = t.direction === 'Long' 
-      ? ((t.exitPrice || 0) - t.entryPrice) * t.quantity 
-      : (t.entryPrice - (t.exitPrice || 0)) * t.quantity;
-    return pnl > 0;
-  });
-  
-  const totalPnl = closedTrades.reduce((sum, t) => {
-    const pnl = t.direction === 'Long'
-      ? ((t.exitPrice || 0) - t.entryPrice) * t.quantity - t.commission
-      : (t.entryPrice - (t.exitPrice || 0)) * t.quantity - t.commission;
-    return sum + pnl;
-  }, 0);
-  
-  const winRate = closedTrades.length > 0 
-    ? (winningTrades.length / closedTrades.length) * 100 
-    : 0;
+  const openTrades = trades.filter(t => !t.exitPrice);
 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
         <Title>Trading Dashboard</Title>
       </View>
-      
+
       <TaxRegionRemovedNotice variant="compact" style={styles.notice} />
-      
+
       {!localProfile && (
         <Card style={styles.warningCard}>
           <Card.Content>
-            <Text style={styles.warningTitle}>👋 Welcome to Local-Only Mode!</Text>
-            <Text style={styles.warningText}>
-              Create a profile to get started. All data is stored locally on this device.
+            <Text style={styles.warningTitle}>
+              👋 Welcome to Local-Only Mode!
             </Text>
-            <Button 
-              mode="contained" 
+            <Text style={styles.warningText}>
+              Create a profile to get started. All data is stored locally on
+              this device.
+            </Text>
+            <Button
+              mode="contained"
               onPress={() => navigation.navigate('Settings')}
-              style={styles.warningButton}
-            >
+              style={styles.warningButton}>
               Create Profile
             </Button>
           </Card.Content>
         </Card>
       )}
 
+      {/* Primary Statistics */}
       <View style={styles.statsContainer}>
-        <Card style={styles.statCard}>
-          <Card.Content>
-            <Text style={styles.statLabel}>Total P&L (Redux)</Text>
-            <Text style={[styles.statValue, {color: totalPnl >= 0 ? colors.profit : colors.loss}]}>
-              ${totalPnl.toFixed(2)}
-            </Text>
-          </Card.Content>
-        </Card>
-        
-        <Card style={styles.statCard}>
-          <Card.Content>
-            <Text style={styles.statLabel}>Win Rate</Text>
-            <Text style={styles.statValue}>{winRate.toFixed(1)}%</Text>
-          </Card.Content>
-        </Card>
-        
-        <Card style={styles.statCard}>
-          <Card.Content>
-            <Text style={styles.statLabel}>Total Trades (Redux)</Text>
-            <Text style={styles.statValue}>{totalTrades}</Text>
-          </Card.Content>
-        </Card>
-        
-        <Card style={styles.statCard}>
-          <Card.Content>
-            <Text style={styles.statLabel}>Local Trades</Text>
-            <Text style={styles.statValue}>{localTrades.length}</Text>
-          </Card.Content>
-        </Card>
+        <StatCard
+          label="Total P&L"
+          value={formatCurrency(totalPnl)}
+          color={totalPnl >= 0 ? colors.profit : colors.loss}
+        />
+        <StatCard
+          label="Win Rate"
+          value={formatPercentage(winRate)}
+          color={winRate >= 50 ? colors.profit : colors.loss}
+        />
+        <StatCard
+          label="Total Trades"
+          value={totalTrades}
+          subtitle={`${closedTrades.length} closed, ${openTrades.length} open`}
+        />
+        <StatCard
+          label="Profit Factor"
+          value={profitFactor.toFixed(2)}
+          color={profitFactor >= 1.5 ? colors.profit : colors.warning}
+        />
       </View>
-      
-      <Card style={styles.card}>
-        <Card.Content>
-          <Title>Storage Info</Title>
-          <Text style={styles.infoText}>
-            Redux Trades: {totalTrades} (in-memory){'\n'}
-            Local Storage Trades: {localTrades.length} (AsyncStorage){'\n'}
-            Profile: {localProfile ? '✅ Created' : '❌ Not created'}
-          </Text>
-        </Card.Content>
-      </Card>
-      
+
+      {/* Secondary Statistics */}
+      <View style={styles.statsContainer}>
+        <StatCard
+          label="Average Win"
+          value={formatCurrency(averageWin)}
+          color={colors.profit}
+        />
+        <StatCard
+          label="Average Loss"
+          value={formatCurrency(Math.abs(averageLoss))}
+          color={colors.loss}
+        />
+        <StatCard
+          label="Largest Win"
+          value={formatCurrency(largestWin)}
+          color={colors.profit}
+        />
+        <StatCard
+          label="Largest Loss"
+          value={formatCurrency(Math.abs(largestLoss))}
+          color={colors.loss}
+        />
+      </View>
+
+      {/* Risk Metrics */}
+      <View style={styles.statsContainer}>
+        <StatCard
+          label="Max Drawdown"
+          value={formatCurrency(maxDrawdown)}
+          color={colors.loss}
+        />
+        <StatCard
+          label="Expectancy"
+          value={formatCurrency(expectancy)}
+          color={expectancy >= 0 ? colors.profit : colors.loss}
+        />
+        <StatCard
+          label="Current Streak"
+          value={`${currentStreak.count} ${currentStreak.type}`}
+          color={currentStreak.type === 'winning' ? colors.profit : colors.loss}
+        />
+        <StatCard
+          label="Local Trades"
+          value={localTrades.length}
+          subtitle="AsyncStorage"
+        />
+      </View>
+
+      {/* Equity Curve Chart */}
+      <EquityCurveChart data={equityCurve} />
+
       <Card style={styles.card}>
         <Card.Content>
           <Title>Recent Activity</Title>
           {trades.length === 0 && localTrades.length === 0 ? (
-            <Text style={styles.emptyText}>No trades yet. Start by adding your first trade!</Text>
+            <Text style={styles.emptyText}>
+              No trades yet. Start by adding your first trade!
+            </Text>
           ) : (
-            <Text>Recent trades will be displayed here.</Text>
+            <>
+              <Text style={styles.infoText}>
+                Redux Trades: {totalTrades} (in-memory){'\n'}
+                Closed Trades: {closedTrades.length}
+                {'\n'}
+                Open Positions: {openTrades.length}
+                {'\n'}
+                Local Storage: {localTrades.length} trades{'\n'}
+                Profile: {localProfile ? '✅ Created' : '❌ Not created'}
+              </Text>
+              <Button
+                mode="contained"
+                onPress={() => navigation.navigate('TradeList')}
+                style={styles.viewAllButton}>
+                View All Trades
+              </Button>
+            </>
           )}
         </Card.Content>
       </Card>
@@ -144,20 +208,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     padding: spacing.sm,
-  },
-  statCard: {
-    width: '48%',
-    margin: spacing.xs,
-  },
-  statLabel: {
-    fontSize: 14,
-    color: colors.light.textSecondary,
-    marginBottom: spacing.xs,
-  },
-  statValue: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: colors.light.text,
   },
   card: {
     margin: spacing.md,
@@ -188,6 +238,9 @@ const styles = StyleSheet.create({
   infoText: {
     marginTop: spacing.sm,
     lineHeight: 20,
+  },
+  viewAllButton: {
+    marginTop: spacing.md,
   },
 });
 

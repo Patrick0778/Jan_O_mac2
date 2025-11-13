@@ -14,22 +14,10 @@ export const tradeValidationSchema = yup.object().shape({
     .number()
     .required('Quantity is required')
     .positive('Quantity must be positive'),
-  commission: yup
-    .number()
-    .min(0, 'Commission cannot be negative')
-    .default(0),
-  exitPrice: yup
-    .number()
-    .positive('Exit price must be positive')
-    .optional(),
-  stopLoss: yup
-    .number()
-    .positive('Stop loss must be positive')
-    .optional(),
-  takeProfit: yup
-    .number()
-    .positive('Take profit must be positive')
-    .optional(),
+  commission: yup.number().min(0, 'Commission cannot be negative').default(0),
+  exitPrice: yup.number().positive('Exit price must be positive').optional(),
+  stopLoss: yup.number().positive('Stop loss must be positive').optional(),
+  takeProfit: yup.number().positive('Take profit must be positive').optional(),
 });
 
 export const strategyValidationSchema = yup.object().shape({

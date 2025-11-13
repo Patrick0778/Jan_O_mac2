@@ -11,20 +11,27 @@ const TradeListScreen = ({navigation}: any) => {
   const [showAddDialog, setShowAddDialog] = useState(false);
 
   const renderTrade = ({item}: any) => {
-    const pnl = item.exitPrice 
+    const pnl = item.exitPrice
       ? item.direction === 'Long'
         ? (item.exitPrice - item.entryPrice) * item.quantity - item.commission
         : (item.entryPrice - item.exitPrice) * item.quantity - item.commission
       : null;
 
     return (
-      <TouchableOpacity 
+      <TouchableOpacity
         onPress={() => navigation.navigate('TradeDetail', {tradeId: item.id})}>
         <Card style={styles.card}>
           <Card.Content>
             <View style={styles.cardHeader}>
               <Text style={styles.symbol}>{item.symbol}</Text>
-              <Text style={[styles.direction, {color: item.direction === 'Long' ? colors.profit : colors.loss}]}>
+              <Text
+                style={[
+                  styles.direction,
+                  {
+                    color:
+                      item.direction === 'Long' ? colors.profit : colors.loss,
+                  },
+                ]}>
                 {item.direction}
               </Text>
             </View>
@@ -35,7 +42,11 @@ const TradeListScreen = ({navigation}: any) => {
               )}
             </View>
             {pnl !== null && (
-              <Text style={[styles.pnl, {color: pnl >= 0 ? colors.profit : colors.loss}]}>
+              <Text
+                style={[
+                  styles.pnl,
+                  {color: pnl >= 0 ? colors.profit : colors.loss},
+                ]}>
                 P&L: ${pnl.toFixed(2)}
               </Text>
             )}
@@ -50,7 +61,9 @@ const TradeListScreen = ({navigation}: any) => {
       {trades.length === 0 ? (
         <View style={styles.emptyContainer}>
           <Text style={styles.emptyText}>No trades yet</Text>
-          <Text style={styles.emptySubtext}>Tap the + button to add your first trade</Text>
+          <Text style={styles.emptySubtext}>
+            Tap the + button to add your first trade
+          </Text>
         </View>
       ) : (
         <FlatList
@@ -65,24 +78,28 @@ const TradeListScreen = ({navigation}: any) => {
         icon="plus"
         onPress={() => setShowAddDialog(true)}
       />
-      
+
       <Portal>
-        <Dialog visible={showAddDialog} onDismiss={() => setShowAddDialog(false)}>
+        <Dialog
+          visible={showAddDialog}
+          onDismiss={() => setShowAddDialog(false)}>
           <Dialog.Title>Add Trade</Dialog.Title>
           <Dialog.Content>
             <Text>Choose how to add a trade:</Text>
           </Dialog.Content>
           <Dialog.Actions>
-            <Button onPress={() => {
-              setShowAddDialog(false);
-              navigation.navigate('AddTrade');
-            }}>
+            <Button
+              onPress={() => {
+                setShowAddDialog(false);
+                navigation.navigate('AddTrade');
+              }}>
               Quick Add (Redux)
             </Button>
-            <Button onPress={() => {
-              setShowAddDialog(false);
-              navigation.navigate('TradeEntry');
-            }}>
+            <Button
+              onPress={() => {
+                setShowAddDialog(false);
+                navigation.navigate('TradeEntry');
+              }}>
               Local Storage
             </Button>
           </Dialog.Actions>

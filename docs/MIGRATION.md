@@ -7,6 +7,7 @@ This guide helps existing users migrate from the previous cloud-synced version t
 The app has been converted to a **fully local-only architecture**:
 
 ### ✅ What's New
+
 - All data stored locally using AsyncStorage
 - Manual trade entry (no automatic price fetching)
 - Local PDF report generation
@@ -14,6 +15,7 @@ The app has been converted to a **fully local-only architecture**:
 - Complete privacy - no cloud sync
 
 ### ❌ What's Been Removed
+
 - Cloud synchronization
 - Tax calculation features
 - Region selection
@@ -69,8 +71,9 @@ If you want a fresh start:
 ```
 
 Or programmatically:
+
 ```typescript
-import { clearAllLocalData } from './src/services/localStorage';
+import {clearAllLocalData} from './src/services/localStorage';
 await clearAllLocalData();
 ```
 
@@ -101,6 +104,7 @@ If you exported trades from the previous version:
 ```
 
 **Note**: The import feature expects JSON in this format:
+
 ```json
 {
   "exportDate": "2025-10-29T12:00:00.000Z",
@@ -117,8 +121,8 @@ If you exported trades from the previous version:
       "symbol": "AAPL",
       "type": "Long",
       "quantity": 100,
-      "entryPrice": 150.00,
-      "fees": 5.00,
+      "entryPrice": 150.0,
+      "fees": 5.0,
       "entryDate": "2025-01-01T10:00:00.000Z"
     }
   ]
@@ -141,29 +145,29 @@ If you don't have an export file, you'll need to manually re-enter your trades:
 
 ### Profile Fields
 
-| Old Field | New Field | Notes |
-|-----------|-----------|-------|
-| name | name | Same |
-| email | email | Optional |
-| startingCapital | startingCapital | Same |
-| currency | currency | Same |
-| region | ❌ Removed | No longer used |
-| taxStatus | ❌ Removed | No longer used |
+| Old Field       | New Field       | Notes          |
+| --------------- | --------------- | -------------- |
+| name            | name            | Same           |
+| email           | email           | Optional       |
+| startingCapital | startingCapital | Same           |
+| currency        | currency        | Same           |
+| region          | ❌ Removed      | No longer used |
+| taxStatus       | ❌ Removed      | No longer used |
 
 ### Trade Fields
 
-| Old Field | New Field | Notes |
-|-----------|-----------|-------|
-| id | id | Auto-generated |
-| symbol | symbol | Same |
-| direction/type | type | Now "Long" or "Short" |
-| entryPrice | entryPrice | Manually entered |
-| exitPrice | exitPrice | Optional, manually entered |
-| quantity | quantity | Same |
-| commission/fees | fees | Same |
-| notes | notes | Optional |
-| entryDate | entryDate | ISO string |
-| exitDate | exitDate | Optional, ISO string |
+| Old Field       | New Field  | Notes                      |
+| --------------- | ---------- | -------------------------- |
+| id              | id         | Auto-generated             |
+| symbol          | symbol     | Same                       |
+| direction/type  | type       | Now "Long" or "Short"      |
+| entryPrice      | entryPrice | Manually entered           |
+| exitPrice       | exitPrice  | Optional, manually entered |
+| quantity        | quantity   | Same                       |
+| commission/fees | fees       | Same                       |
+| notes           | notes      | Optional                   |
+| entryDate       | entryDate  | ISO string                 |
+| exitDate        | exitDate   | Optional, ISO string       |
 
 ## Post-Migration Checklist
 
@@ -180,42 +184,53 @@ After migration, verify:
 ## Differences to Note
 
 ### Trade Entry
+
 - **Old**: Prices fetched automatically from APIs
 - **New**: All prices manually entered by user
 
 ### Data Storage
+
 - **Old**: Synced to cloud, available on all devices
 - **New**: Stored locally, one device only
 
 ### Backups
+
 - **Old**: Automatic cloud backups
 - **New**: Manual JSON exports (user's responsibility)
 
 ### Tax Features
+
 - **Old**: Tax calculations available
 - **New**: No tax features (removed intentionally)
 
 ## Frequently Asked Questions
 
 ### Can I sync between devices?
+
 No, the local-only version does not support multi-device sync. Each device stores its own data independently.
 
 ### How do I backup my data?
+
 Export to JSON regularly from Settings → Export Data (JSON). Save the file to cloud storage (Google Drive, iCloud, etc.) or email it to yourself.
 
 ### Can I use both versions?
+
 Not recommended. Choose either cloud-synced (old) or local-only (new). Running both may cause confusion about which data is current.
 
 ### What if I lose my device?
+
 Without cloud sync, data is lost if the device is lost. **Regular JSON exports are critical** for backup purposes.
 
 ### Can I go back to the cloud version?
+
 You can revert to an older git commit, but you'll lose any local-only data unless you export it first.
 
 ### Will tax features be added back?
+
 No, tax features were intentionally removed as part of the local-only conversion. This simplifies the app and eliminates compliance concerns.
 
 ### How often should I export my data?
+
 Recommended: **Weekly** or after significant trading activity. Store exports in multiple secure locations.
 
 ## Rollback Instructions
@@ -244,6 +259,7 @@ If you encounter issues during migration:
 ## Summary
 
 The local-only architecture provides:
+
 - ✅ Complete data privacy
 - ✅ No internet dependency
 - ✅ Simple, focused feature set

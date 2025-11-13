@@ -35,5 +35,6 @@ const strategiesSlice = createSlice({
   },
 });
 
-export const {addStrategy, updateStrategy, deleteStrategy, setStrategies} = strategiesSlice.actions;
+export const {addStrategy, updateStrategy, deleteStrategy, setStrategies} =
+  strategiesSlice.actions;
 export default strategiesSlice.reducer;
